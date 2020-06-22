@@ -43,11 +43,11 @@ function App() {
       return;
     }
 
-    generationCountRef.current += 1;
+    // generationCountRef.current += 1;
 
-    console.log("I'm running the simulation", generationCountRef.current);
+    setGenCount((genCount) => (genCount += 1));
 
-    // setGenCount(genCount + 1);
+    console.log("I'm running the simulation");
 
     //simulate
     setGrid((g) => {
@@ -77,11 +77,11 @@ function App() {
     });
 
     setTimeout(runSimulation, 500);
-  }, [generationCountRef]);
+  }, []);
 
   return (
     <>
-      <h3>{`# of Generations: ${generationCountRef.current}`}</h3>
+      <h3>{`# of Generations: ${genCount}`}</h3>
       <button
         onClick={() => {
           setRunning(!running);
