@@ -1,8 +1,14 @@
 import React from "react";
+import styled from "styled-components";
+
+const GridCont = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 
 function GridDisplay({ grid, numCols, setGrid, color, produce }) {
   return (
-    <div>
+    <GridCont>
       <div
         style={{
           display: "grid",
@@ -29,7 +35,7 @@ function GridDisplay({ grid, numCols, setGrid, color, produce }) {
           ))
         )}
       </div>
-    </div>
+    </GridCont>
   );
 }
 
