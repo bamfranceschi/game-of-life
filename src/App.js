@@ -1,53 +1,67 @@
 import React, { useState, useCallback, useRef } from "react";
 import produce from "immer";
-
-const numRows = 50;
-const numCols = 50;
-
-const operations = [
-  [0, 1],
-  [0, -1],
-  [1, -1],
-  [-1, 1],
-  [1, 1],
-  [-1, -1],
-  [-1, 0],
-];
-
-const generateEmptyGrid = () => {
-  const rows = [];
-  for (let i = 0; i < numRows; i++) {
-    rows.push(Array.from(Array(numCols), () => 0));
-  }
-  return rows;
-};
+import Heading from "./Heading";
+import GenDisplay from "./GenDisplay";
+import Controls from "./Controls";
+import GridDisplay from "./GridDisplay";
 
 function App() {
+  //defines the shape of the grid/2D array
+  const numRows = 40;
+  const numCols = 80;
+
+  //defines the neighbor "coordinates"
+  const operations = [
+    [0, 1],
+    [0, -1],
+    [1, -1],
+    [-1, 1],
+    [1, 1],
+    [-1, -1],
+    [1, 0],
+    [-1, 0],
+  ];
+
+  //function that creates an empty grid as defined by numRows and numCols, with each cell dead to start. Initial state before user interaction.
+  const generateEmptyGrid = () => {
+    const rows = [];
+    for (let i = 0; i < numRows; i++) {
+      rows.push(Array.from(Array(numCols), () => 0));
+    }
+    return rows;
+  };
+
+  //Slices of state
   const [grid, setGrid] = useState(() => {
     return generateEmptyGrid();
   });
-
   const [running, setRunning] = useState(false);
   const [genCount, setGenCount] = useState(0);
+  const [color, setColor] = useState("#4caf50");
+  const [speed, setSpeed] = useState(100);
+
+  const generationCount = 0;
+
+  //Refs
+  const generationCountRef = useRef(generationCount);
+  generationCountRef.current = generationCount;
 
   const runningRef = useRef(running);
   runningRef.current = running;
 
-  const generationCount = 0;
+  //Handle change for speed
+  const changeInt = (e) => {
+    setSpeed(Number(e.target.value));
+  };
 
-  const generationCountRef = useRef(generationCount);
-  generationCountRef.current = generationCount;
-
+  //function that runs the simulation
   const runSimulation = useCallback(() => {
     if (!runningRef.current) {
       return;
     }
 
-    // generationCountRef.current += 1;
-
+    //increments the generation count for each simulation
     setGenCount((genCount) => (genCount += 1));
-
-    console.log("I'm running the simulation");
 
     //simulate
     setGrid((g) => {
@@ -76,70 +90,35 @@ function App() {
       });
     });
 
-    setTimeout(runSimulation, 500);
-  }, []);
+    setTimeout(runSimulation, speed);
+  }, [speed, numCols, numRows, operations]);
 
   return (
     <>
-      <h3>{`# of Generations: ${genCount}`}</h3>
-      <button
-        onClick={() => {
-          setRunning(!running);
-          if (!running) {
-            runningRef.current = true;
-            runSimulation();
-          }
-        }}
-      >
-        {running ? "stop" : "start"}
-      </button>
-      <button
-        onClick={() => {
-          setGrid(generateEmptyGrid);
-          setGenCount(0);
-        }}
-      >
-        clear
-      </button>
-      <button
-        onClick={() => {
-          const rows = [];
-          for (let i = 0; i < numRows; i++) {
-            rows.push(
-              Array.from(Array(numCols), () => (Math.random() > 0.8 ? 1 : 0))
-            );
-          }
-          setGrid(rows);
-        }}
-      >
-        random
-      </button>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: `repeat(${numCols}, 20px)`,
-        }}
-      >
-        {grid.map((rows, i) =>
-          rows.map((col, k) => (
-            <div
-              key={`${i} - ${k}`}
-              onClick={() => {
-                const newGrid = produce(grid, (gridCopy) => {
-                  gridCopy[i][k] = grid[i][k] ? 0 : 1;
-                });
-                setGrid(newGrid);
-              }}
-              style={{
-                width: 20,
-                height: 20,
-                backgroundColor: grid[i][k] ? "pink" : undefined,
-                border: "solid 1px black",
-              }}
-            />
-          ))
-        )}
-      </div>
+      <Heading />
+      <GridDisplay
+        grid={grid}
+        numCols={numCols}
+        setGrid={setGrid}
+        color={color}
+        produce={produce}
+      />
+      <GenDisplay genCount={genCount} />
+      <Controls
+        running={running}
+        setRunning={setRunning}
+        runningRef={runningRef}
+        runSimulation={runSimulation}
+        setGrid={setGrid}
+        setGenCount={setGenCount}
+        generateEmptyGrid={generateEmptyGrid}
+        numRows={numRows}
+        numCols={numCols}
+        color={color}
+        setColor={setColor}
+        speed={speed}
+        changeInt={changeInt}
+      />
     </>
   );
 }
