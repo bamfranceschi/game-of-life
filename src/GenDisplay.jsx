@@ -9,7 +9,7 @@ const GenTitle = styled.div`
 function GenDisplay({ genCount }) {
   return (
     <GenTitle>
-      <h3>{`# of Generations: ${genCount}`}</h3>
+      <h3>{`Generation No. : ${genCount}`}</h3>
     </GenTitle>
   );
 }

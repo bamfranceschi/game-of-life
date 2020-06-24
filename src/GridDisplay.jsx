@@ -29,7 +29,7 @@ function GridDisplay({ grid, numCols, setGrid, color, produce }) {
                 width: 20,
                 height: 20,
                 backgroundColor: grid[i][k] ? `${color}` : undefined,
-                border: "solid 1px grey",
+                border: "solid 1px slateblue",
               }}
             />
           ))

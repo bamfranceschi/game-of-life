@@ -4,6 +4,7 @@ import Heading from "./Heading";
 import GenDisplay from "./GenDisplay";
 import Controls from "./Controls";
 import GridDisplay from "./GridDisplay";
+import Rules from "./Rules";
 
 function App() {
   //defines the shape of the grid/2D array
@@ -119,6 +120,7 @@ function App() {
         speed={speed}
         changeInt={changeInt}
       />
+      <Rules />
     </>
   );
 }
