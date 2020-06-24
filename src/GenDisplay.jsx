@@ -6,10 +6,14 @@ const GenTitle = styled.div`
   justify-content: center;
 `;
 
+const SubHeaderSize = styled.h3`
+  font-size: 1.5rem;
+`;
+
 function GenDisplay({ genCount }) {
   return (
     <GenTitle>
-      <h3>{`Generation No. : ${genCount}`}</h3>
+      <SubHeaderSize>{`Generation No. : ${genCount}`}</SubHeaderSize>
     </GenTitle>
   );
 }

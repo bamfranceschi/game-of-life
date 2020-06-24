@@ -9,7 +9,7 @@ import Rules from "./Rules";
 function App() {
   //defines the shape of the grid/2D array
   const numRows = 40;
-  const numCols = 80;
+  const numCols = 60;
 
   //defines the neighbor "coordinates"
   const operations = [

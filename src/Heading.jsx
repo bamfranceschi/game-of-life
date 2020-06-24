@@ -8,11 +8,19 @@ const StyledDiv = styled.div`
   align-items: center;
 `;
 
+const HeaderSize = styled.h1`
+  font-size: 3rem;
+`;
+
+const SubHeaderSize = styled.h3`
+  font-size: 1.5rem;
+`;
+
 function Heading() {
   return (
     <StyledDiv>
-      <h1>Conway's Game of Life</h1>
-      <h3>John Horton Conway's Cellular Automaton</h3>
+      <HeaderSize>Conway's Game of Life</HeaderSize>
+      <SubHeaderSize>John Horton Conway's Cellular Automaton</SubHeaderSize>
     </StyledDiv>
   );
 }

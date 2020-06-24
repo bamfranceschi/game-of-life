@@ -49,6 +49,14 @@ const SpeedCont = styled.div`
   width: 33%;
 `;
 
+const SubHeaderSize = styled.h3`
+  font-size: 1.5rem;
+`;
+
+const SubSubSize = styled.h4`
+  font-size: 1.2rem;
+`;
+
 function Controls({
   setRunning,
   running,
@@ -68,12 +76,12 @@ function Controls({
     <OutsideCont>
       <ParentCont>
         <ColorCont>
-          <h3>Choose a color</h3>
+          <SubHeaderSize>Choose a color</SubHeaderSize>
           <ColorPicker color={color} setColor={setColor} />
         </ColorCont>
         <ButtonCont>
           <div>
-            <h3>Game Controls</h3>
+            <SubHeaderSize>Game Controls</SubHeaderSize>
           </div>
           <div>
             <BControl
@@ -113,8 +121,8 @@ function Controls({
           </div>
         </ButtonCont>
         <SpeedCont>
-          <h3>Speed</h3>
-          <h4>Fast --> Slow</h4>
+          <SubHeaderSize>Speed</SubHeaderSize>
+          <SubSubSize>Fast --{">"} Slow</SubSubSize>
           <input
             type="range"
             min="0"
