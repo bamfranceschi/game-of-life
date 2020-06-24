@@ -30,6 +30,7 @@ const BControl = styled.button`
   padding-bottom: 0.7rem;
   border-radius: 15%;
   background-color: white;
+  border: none;
 `;
 
 const ColorCont = styled.div`
